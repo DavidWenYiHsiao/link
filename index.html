@@ -40,6 +40,12 @@
         .profile-image {
             max-width: 150px;
             border-radius: 50%;
+            transition: transform 0.3s; /* Add the transition effect */
+        }
+
+        .profile-image:hover {
+            transform: scale(1.155); /* Scale up the image on hover */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
         }
 
         .profile-name {
@@ -59,26 +65,30 @@
             margin-top: 20px;
         }
 
-        .link {
-            margin: 10px 0;
-        }
-
         .link a {
-            display: inline-block;
+            display: flex; /* Use flexbox */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
             padding: 10px 20px;
             background-color: #ffffff;
-            color: #000; /* Black text */
+            color: #000;
             text-decoration: none;
-            border: 2px solid #000; /* Black outline */
+            border: 3px solid #000;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Shadow outside */
-            transition: background-color 0.3s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, transform 0.2s ease-in-out;
         }
 
         .link a:hover {
             background-color: #a6a6a6;
+            transform: scale(1.1);
+        }
+
+        .icon {
+            margin-right: 8px; /* Add some space between the image and the text */
+            max-width: 30px; /* Adjust the image size as needed */
         }
     </style>
 </head>
@@ -92,14 +102,19 @@
             <div class="profile-name">
                 @DavidHsiao
             </div>
-            <div class="profile-description">
+            <div class "profile-description">
                 3rd-year EE student at UBC<br>
                 Appreciate your visit!
             </div>
         </div>
         <div class="links">
             <div class="link">
-                <a href="https://davidwenyihsiao.github.io/web/">My Portfolio</a>
+                <a href="https://davidwenyihsiao.github.io/web/">
+                    <span class="icon">
+                        <img src="2.png" alt="Image" style="max-width: 30px;">
+                    </span>
+                    My Portfolio
+                </a>
             </div>
         </div>
     </div>
