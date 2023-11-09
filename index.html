@@ -32,6 +32,16 @@
             z-index: 1;
         }
 
+        #date {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        #clock {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
         .profile-info {
             text-align: center;
             padding: 20px;
@@ -40,12 +50,12 @@
         .profile-image {
             max-width: 150px;
             border-radius: 50%;
-            transition: transform 0.3s; /* Add the transition effect */
+            transition: transform 0.3s;
         }
 
         .profile-image:hover {
-            transform: scale(1.155); /* Scale up the image on hover */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
+            transform: scale(1.155);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         .profile-name {
@@ -66,9 +76,9 @@
         }
 
         .link a {
-            display: flex; /* Use flexbox */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 10px 20px;
             background-color: #ffffff;
             color: #000;
@@ -87,8 +97,8 @@
         }
 
         .icon {
-            margin-right: 8px; /* Add some space between the image and the text */
-            max-width: 30px; /* Adjust the image size as needed */
+            margin-right: 8px;
+            max-width: 30px;
         }
     </style>
 </head>
@@ -97,6 +107,8 @@
         <source src="1.mp4" type="video/mp4">
     </video>
     <div class="container">
+        <div id="date"></div>
+        <div id="clock"></div>
         <div class="profile-info">
             <img class="profile-image" src="pfp.png" alt="Profile Image">
             <div class="profile-name">
@@ -129,5 +141,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+
+            document.getElementById('date').textContent = dateString;
+        }
+
+        // Update the clock and date every second
+        setInterval(updateClock, 1000);
+        setInterval(updateDate, 1000);
+
+        // Initial update
+        updateClock();
+        updateDate();
+    </script>
 </body>
 </html>
