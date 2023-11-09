@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         body {
@@ -40,6 +41,11 @@
         #clock {
             font-size: 1.5em;
             margin-bottom: 10px;
+        }
+
+        #weather {
+            font-size: 1em;
+            margin-top: 10px;
         }
 
         .profile-info {
@@ -102,6 +108,7 @@
         }
     </style>
 </head>
+
 <body>
     <video autoplay loop muted>
         <source src="1.mp4" type="video/mp4">
@@ -109,14 +116,14 @@
     <div class="container">
         <div id="date"></div>
         <div id="clock"></div>
+        <div id="weather"></div>
         <div class="profile-info">
             <img class="profile-image" src="pfp.png" alt="Profile Image">
             <div class="profile-name">
                 @DavidHsiao
             </div>
-            <div class "profile-description">
-                3rd-year EE student at UBC<br>
-                Appreciate your visit!
+            <div class="profile-description">
+                3rd-year EE student at UBC<br> Appreciate your visit!
             </div>
         </div>
         <div class="links">
@@ -124,8 +131,7 @@
                 <a href="https://davidwenyihsiao.github.io/web/">
                     <span class="icon">
                         <img src="2.png" alt="Image" style="max-width: 30px;">
-                    </span>
-                    My Portfolio
+                    </span> My Portfolio
                 </a>
             </div>
         </div>
@@ -135,8 +141,7 @@
                 <a href="https://davidwenyihsiao.github.io/QA/">
                     <span class="icon">
                         <img src="3.png" alt="Image" style="max-width: 30px;">
-                    </span>
-                    Questions?
+                    </span> Questions?
                 </a>
             </div>
         </div>
@@ -161,13 +166,40 @@
             document.getElementById('date').textContent = dateString;
         }
 
-        // Update the clock and date every second
+        function updateWeather() {
+            const apiKey = '42850e4e19d2148ae9cbeb2e565171c0';
+            const city = 'Vancouver';
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const temperature = data.main.temp;
+                    const description = data.weather[0].description;
+                    const weatherString = `Weather: ${description} <br>Temperature: ${temperature}°C`;
+
+                    document.getElementById('weather').innerHTML = weatherString;
+                })
+                .catch(error => {
+                    console.error('Error fetching weather:', error);
+                    document.getElementById('weather').textContent = 'Unable to fetch weather';
+                });
+        }
+
+        // Call the updateWeather function along with clock and date
         setInterval(updateClock, 1000);
         setInterval(updateDate, 1000);
+        setInterval(updateWeather, 600000); // Update weather every 10 minutes
 
-        // Initial update
+        // Initial updates
         updateClock();
         updateDate();
+        updateWeather();
     </script>
 </body>
+
 </html>
